@@ -28,3 +28,5 @@ class Categoria{
      public function eliminar(){
      }
 }
+
+?>
