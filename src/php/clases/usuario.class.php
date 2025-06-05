@@ -19,8 +19,11 @@ class Usuario{
     }
     
     public function guardar(){
-        
+        $sql = "INSERT INTO `usuarios` (`nombre`, `email`, `password`, `rol`) VALUES (?, ?, ?, ?)";
+        $stmt = $this->conexion->prepare($sql);
+        return $stmt->execute([$this->nombre, $this->email, $this->password, $this->rol]);
     }
+        
     public function obtenerTodas(){
         
     }
