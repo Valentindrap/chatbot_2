@@ -41,7 +41,7 @@ public function guardar(){
 public static function obtenerPorId(){
     $conexion = database::getInstance()->getConnection();
     $sql = "SELECT * FROM roles WHERE id=?";
-    $stmt = $conexion->prepare($sql);
+    $stmt = $conexion->query($sql);
     $stmt->execute([$id]);
     $resultado= $stmt->fetch(PDO::FETCH_ASSOC);
     if($resultado){
@@ -53,7 +53,7 @@ public static function obtenerPorId(){
 public static function obtenerTodas(){
     $conexion = database::getInstance()->getConnection();
     $sql = "SELECT * FROM roles";
-    $stmt = $conexion->prepare($sql);
+    $stmt = $conexion->query($sql);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
