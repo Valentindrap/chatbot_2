@@ -54,7 +54,7 @@ public static function obtenerTodas(){
     $conexion = database::getInstance()->getConnection();
     $sql = "SELECT * FROM roles";
     $stmt = $conexion->prepare($sql);
-    return $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 public function setID($id){

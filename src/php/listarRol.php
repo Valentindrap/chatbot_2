@@ -1,6 +1,6 @@
 <?php
 
-require_once("clases/rol.class.php");
+require_once("./clases/rol.class.php");
 $roles = Rol::obtenerTodas();
 ?>
 
