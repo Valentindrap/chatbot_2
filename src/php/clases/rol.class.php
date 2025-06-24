@@ -6,7 +6,7 @@ class Rol{
     private $nombre;
     private $conexion;
 
-public function __construct($id, $nombre, $conexion){
+public function __construct($id=null, $nombre=null){
         $this->id = $id;
         $this->nombre = $nombre;
         $this->conexion = database::getInstance()->getConnection();
@@ -21,7 +21,7 @@ public function actualizar(){
 public function eliminar(){
     $sql = "DELETE FROM roles WHERE id=?";
     $stmt = $this->conexion->prepare($sql);
-    return $stmt->execute([this->id]);
+    return $stmt->execute([$this->id]);
 }
 
 public function getID(){
@@ -35,13 +35,13 @@ public function getNombre(){
 public function guardar(){
     $sql = "INSERT INTO `roles` (`nombre`) VALUES (?)";
     $stmt = $this->conexion->prepare($sql);
-    return $stmt->execute([this->nombre]);
+    return $stmt->execute([$this->nombre]);
 }
 
 public static function obtenerPorId(){
     $conexion = database::getInstance()->getConnection();
     $sql = "SELECT * FROM roles WHERE id=?";
-    $stmt = $this->conexion->prepare($sql);
+    $stmt = $conexion->prepare($sql);
     $stmt->execute([$id]);
     $resultado= $stmt->fetch(PDO::FETCH_ASSOC);
     if($resultado){
@@ -53,7 +53,7 @@ public static function obtenerPorId(){
 public static function obtenerTodas(){
     $conexion = database::getInstance()->getConnection();
     $sql = "SELECT * FROM roles";
-    $stmt = $this->conexion->prepare($sql);
+    $stmt = $conexion->prepare($sql);
     return $stmt->execute();
 }
 

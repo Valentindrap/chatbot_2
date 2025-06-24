@@ -9,7 +9,7 @@ class Database{
     private $clave = "";
     private $conexion;
     
-    private function __construct($nombre, $servidor, $usuario, $clave, $conexion){
+    private function __construct(){
         
         try{
             $dsn= "mysql:host={$this->servidor};dbname={$this->nombre};charset=utf8";
@@ -26,7 +26,7 @@ class Database{
         if(!self::$instancia){
             self::$instancia = new Database();
         }
-        return self::$instance;
+        return self::$instancia;
     }
     
     public function getConnection(){
