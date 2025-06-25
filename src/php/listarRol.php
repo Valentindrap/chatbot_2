@@ -24,9 +24,10 @@ $roles = Rol::obtenerTodas();
             <td><?= $rol['id'] ?></td>
             <td><?= $rol['nombre'] ?></td>
             <td>
-                <a href="rol_editar.php?id=<?= $rol['id'] ?>">Editar</a>
+                <a href="formEditarRol.php?id=<?= $rol['id'] ?>">Editar</a>
 
-                <form action="procesar/rol_eliminar.php" method="post">
+                <form action="controller/rol.controller.php" method="post">
+                    <input type="hidden" name="operacion" value="eliminar">
                     <input type="hidden" name="id" value="<?= $rol['id'] ?>">
                     <input type="submit" onclick="return confirm('¿Está seguro de eliminar este rol?')" value="Eliminar">
                 </form>

@@ -14,8 +14,8 @@ public function __construct($id=null, $nombre=null){
 
 public function actualizar(){
     $sql = "UPDATE roles SET nombre=? WHERE id=?";
-    $stmt = conexion->query($sql);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt = $this->conexion->prepare($sql);
+    return $stmt->execute([$this->nombre, $this->id]);
 }
 
 public function eliminar(){
@@ -38,10 +38,10 @@ public function guardar(){
     return $stmt->execute([$this->nombre]);
 }
 
-public static function obtenerPorId(){
+public static function obtenerPorId($id){
     $conexion = database::getInstance()->getConnection();
     $sql = "SELECT * FROM roles WHERE id=?";
-    $stmt = $conexion->query($sql);
+    $stmt = $conexion->prepare($sql);
     $stmt->execute([$id]);
     $resultado= $stmt->fetch(PDO::FETCH_ASSOC);
     if($resultado){
