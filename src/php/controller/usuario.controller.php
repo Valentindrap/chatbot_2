@@ -20,13 +20,7 @@ if ($operacion == "guardar") {
         $usuario->setNombre($_POST['nombre']);
         $usuario->setEmail($_POST['email']);
         $usuario->setRolId($_POST['rol']);
-
-        if (!empty($_POST['password'])) {
-            $usuario->setPassword(password_hash($_POST['password'], PASSWORD_DEFAULT));
-        } else {
-            // No cambia la contraseña, dejamos el password actual
-            // No hacer nada, la password queda como estaba
-        }
+        $usuario->setPassword(password_hash($_POST['password'], PASSWORD_DEFAULT));
 
         $result = $usuario->actualizar();
     }

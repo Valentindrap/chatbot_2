@@ -1,38 +1,24 @@
 <?php
-include "clases/usuario.class.php";
+include "clases/rol.class.php";
 
-if (isset($_GET['id'])) {
-    $usuario = Usuario::obtenerPorId($_GET['id']);
-    if (!$usuario) {
-        echo "No se ha encontrado el usuario";
-        exit;
-    }
+if(isset($_GET['id'])){
+    $rol = Rol::obtenerPorId($_GET['id']);
 ?>
 
-<h2>Editar Usuario</h2>
-<form name="formEditarUsuario" method="post" action="controller/usuario.controller.php">
+<h2>Editar Rol</h2>
+<form name="formEditarRol" method="post" action="controller/rol.controller.php">
     <input type="hidden" name="operacion" value="actualizar"/>
-    <input type="hidden" name="id" value="<?= $usuario->getId(); ?>">
+    <label for="id">ID:</label>
+    <input type="text" name="id" value="<?= $rol->getID(); ?>" readonly>
+    <label>Nombre:</label>
+    <input type="text" name="nombre" value="<?= $rol->getNombre(); ?>" required>
+    <input type="submit" value="Aceptar">
 
-    <label for="nombre">Nombre:</label>
-    <input type="text" name="nombre" value="<?= $usuario->getNombre(); ?>" required>
-
-    <label for="email">Email:</label>
-    <input type="email" name="email" value="<?= $usuario->getEmail(); ?>" required>
-
-    <label for="password">Nueva Contraseña (opcional):</label>
-    <input type="password" name="password">
-
-    <label for="rol">Rol ID:</label>
-    <input type="text" name="rol" value="<?= $usuario->getRolId(); ?>" required>
-
-    <input type="submit" value="Actualizar Usuario">
 </form>
 
-<a href="listarUsuario.php">Volver</a>
-
+<a href="listarRol.php">Volver</a>
 <?php
-} else {
-    echo "No se ha especificado un usuario";
+}else{
+    print "No se ha encontrado el rol";
 }
 ?>
