@@ -1,4 +1,4 @@
-readme_text = """
+"""
 🤖 chatbot_2
 
 Chatbot construido en PHP+MySQL que permite gestionar roles, preguntas y respuestas a través de un sistema CRUD (Crear, Leer, Actualizar, Eliminar).
