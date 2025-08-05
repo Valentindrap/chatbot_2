@@ -1,5 +1,5 @@
 <?php 
-include "database.class.php";
+include_once("database.class.php");
 $categorias = Categoria::obtenerTodas();
 class Categoria{
     private $id;

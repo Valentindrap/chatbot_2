@@ -1,18 +1,3 @@
-<?php
-// Incluir las clases necesarias
-require_once('clases/Chatbot.class.php');
-
-$chatbot = new Chatbot();  // Crear una instancia de la clase Chatbot
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $texto_usuario = $_POST["text"];
-    $respuesta_bot = $chatbot->responder($texto_usuario);  // Obtener la respuesta del chatbot
-
-    // Guardar la conversación
-    $chatbot->guardarConversacion($texto_usuario, $respuesta_bot);
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -34,6 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <nav>
         <ul>
             <li><a href="index.php">Inicio</a></li>
+            <li><a href="Categoria/listarCategoria.php">Categoría</a></li>
+            <li><a href="listarPregunta.php">Pregunta</a></li>
+            <li><a href="listarRespuesta.php">Respuesta</a></li>
         </ul>
     </nav>
 
@@ -60,9 +48,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="typing-field">
                 <div class="input-data">
-                    <form method="POST" action="index.php">
-                        <input id="data" type="text" name="text" placeholder="Escribe algo aquí..." required>
-                        <button type="submit" id="send-btn">Enviar</button>
+                    <form method="POST">
+                        <input id="data" type="text" name="mensaje" placeholder="Escribe algo aquí..." required />
+                        <button id="send-btn">Enviar</button>
                     </form>
                 </div>
             </div>
@@ -79,28 +67,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p>7I - Programación III</p>
         </div>
     </footer>
-</body>
-<script>
-    $(document).ready(function() {
-        // Mostrar la respuesta en el chat
-        $('#send-btn').on('click', function() {
-            var valor = $('#data').val();
-            var msg = '<div class="user-inbox inbox"> <div class="msg-header"><p class="TextoEnviado">'+valor+'</p></div></div>';
-            $(".form").append(msg);
-            $('#data').val('');
 
-            // Enviar mensaje al servidor
-            $.ajax({
-                url: 'index.php',
-                type: 'POST',
-                data: { text: valor },
-                success: function(response) {
-                    var respuesta = '<div class="bot-inbox inbox"><div class="icon"><i class="fas fa-user"></i></div><div class="msg-header"><p>' + response + '</p></div></div>';
-                    $(".form").append(respuesta);
-                    $(".form").scrollTop($(".form")[0].scrollHeight);
-                }
+    <script>
+        $(document).ready(function(){
+            $("#send-btn").on("click", function(e){
+                e.preventDefault();
+                let valor = $("#data").val();
+                let msg = '<div class="user-inbox inbox"><div class="msg-header"><p class="TextoEnviado">' + valor + '</p></div></div>';
+                $(".form").append(msg);
+                $("#data").val('');
+
+                $.ajax({
+                    url: 'Controller/controlador.php',
+                    type: 'POST',
+                    data: { text: valor },
+                    success: function(result){
+                        let respuesta = '<div class="bot-inbox inbox"><div class="icon"><i class="fas fa-user"></i></div><div class="msg-header"><p>' + result + '</p></div></div>';
+                        $(".form").append(respuesta);
+                        $(".form").scrollTop($(".form")[0].scrollHeight);
+                    }
+                });
             });
         });
-    });
-</script>
-</html>
+    </script>
+</body>

@@ -1,40 +1,35 @@
 <?php
-include "database.class.php";
+include_once("database.class.php");
 
 class Respuesta {
     private $id;
     private $respuesta;
-    private $pregunta_id;
+    private $pregunta;
     private $conexion;
 
-    public function __construct($id = null, $respuesta = null, $pregunta_id = null) {
+    public function __construct($id = null, $respuesta = null, $pregunta = null) {
         $this->id = $id;
         $this->respuesta = $respuesta;
-        $this->pregunta_id = $pregunta_id;
-        $this->conexion = database::getInstance()->getConnection();
+        $this->pregunta = $pregunta;
+        $this->conexion = Database::getInstance()->getConnection();
     }
 
     public function guardar() {
-        $sql = "INSERT INTO respuestas (respuesta, pregunta_id) VALUES (?, ?)";
+        $sql = "INSERT INTO respuesta (respuesta, pregunta_id) VALUES (?, ?)";
         $stmt = $this->conexion->prepare($sql);
-        return $stmt->execute([$this->respuesta, $this->pregunta_id]);
+        return $stmt->execute([$this->respuesta, $this->pregunta]);
     }
 
-    public function actualizar() {
-        $sql = "UPDATE respuestas SET respuesta = ?, pregunta_id = ? WHERE id = ?";
-        $stmt = $this->conexion->prepare($sql);
-        return $stmt->execute([$this->respuesta, $this->pregunta_id, $this->id]);
-    }
-
-    public function eliminar() {
-        $sql = "DELETE FROM respuestas WHERE id = ?";
-        $stmt = $this->conexion->prepare($sql);
-        return $stmt->execute([$this->id]);
+    public static function obtenerTodas() {
+        $conexion = Database::getInstance()->getConnection();
+        $sql = "SELECT * FROM respuesta";
+        $stmt = $conexion->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function obtenerPorId($id) {
-        $conexion = database::getInstance()->getConnection();
-        $sql = "SELECT * FROM respuestas WHERE id = ?";
+        $conexion = Database::getInstance()->getConnection();
+        $sql = "SELECT * FROM respuesta WHERE id = ?";
         $stmt = $conexion->prepare($sql);
         $stmt->execute([$id]);
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -44,14 +39,19 @@ class Respuesta {
         return null;
     }
 
-    public static function obtenerTodas() {
-        $conexion = database::getInstance()->getConnection();
-        $sql = "SELECT * FROM respuestas";
-        $stmt = $conexion->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function actualizar() {
+        $sql = "UPDATE respuesta SET respuesta = ?, pregunta_id = ? WHERE id = ?";
+        $stmt = $this->conexion->prepare($sql);
+        return $stmt->execute([$this->respuesta, $this->pregunta, $this->id]);
     }
 
-    public function getID() {
+    public function eliminar() {
+        $sql = "DELETE FROM respuesta WHERE id = ?";
+        $stmt = $this->conexion->prepare($sql);
+        return $stmt->execute([$this->id]);
+    }
+
+    public function getId() {
         return $this->id;
     }
 
@@ -59,11 +59,11 @@ class Respuesta {
         return $this->respuesta;
     }
 
-    public function getPreguntaID() {
-        return $this->pregunta_id;
+    public function getPregunta() {
+        return $this->pregunta;
     }
 
-    public function setID($id) {
+    public function setId($id) {
         $this->id = $id;
     }
 
@@ -71,8 +71,8 @@ class Respuesta {
         $this->respuesta = $respuesta;
     }
 
-    public function setPreguntaID($pregunta_id) {
-        $this->pregunta_id = $pregunta_id;
+    public function setPregunta($pregunta) {
+        $this->pregunta = $pregunta;
     }
 }
 ?>
