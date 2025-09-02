@@ -1,0 +1,159 @@
+/* General reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    min-height: 100vh;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Container styles */
+  .container {
+    max-width: 800px;
+    margin: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 20px;
+  }
+  
+  /* Logout button styles */
+  .logout {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  
+  .logout a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 8px 16px;
+    border-radius: 12px;
+    background: rgba(139, 74, 243, 0.8);
+    transition: background 0.3s ease;
+  }
+  
+  .logout a:hover {
+    background: rgba(139, 74, 243, 1);
+  }
+  
+  .logout i {
+    font-size: 1.2rem;
+  }
+  
+  /* Header styles */
+  header {
+    padding: 30px;
+    text-align: center;
+    background: linear-gradient(135deg, #6b5b95, #8a4af3);
+    color: white;
+    border-radius: 15px;
+    margin-bottom: 20px;
+  }
+  
+  header h1 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  
+  header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+  
+  /* Section headers */
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.8rem;
+    color: #6b5b95;
+    margin: 20px 0 10px;
+  }
+  
+  h2 i {
+    font-size: 1.4rem;
+    color: #8a4af3;
+  }
+  
+  /* Menu styles */
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background: linear-gradient(135deg, #8a4af3, #b794f6);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .menu a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .menu i {
+    font-size: 1.4rem;
+  }
+  
+  /* Animation for menu items */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .container {
+      margin: 10px;
+    }
+  
+    header h1 {
+      font-size: 2rem;
+    }
+  
+    h2 {
+      font-size: 1.5rem;
+    }
+  
+    .menu a {
+      font-size: 1rem;
+    }
+  }

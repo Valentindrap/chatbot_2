@@ -1,10 +1,17 @@
+<?php include("check_session.php"); ?>
+
 <?php
 include "clases/respuesta.class.php";
 
 if (isset($_GET['id'])) {
     $respuesta = Respuesta::obtenerPorId($_GET['id']);
 ?>
-
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../css/generico.css">
+    <link rel="icon" href="../img/logo.png" type="image/png">
+</head>
+</html>
 <h2>Editar Respuesta</h2>
 <form name="formEditarRespuesta" method="post" action="controller/respuesta.controller.php">
     <input type="hidden" name="operacion" value="actualizar"/>

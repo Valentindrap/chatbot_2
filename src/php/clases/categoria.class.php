@@ -24,17 +24,18 @@ class Categoria{
         $stmt = $conexion->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
      }
-     public static function obtenerPorId(){
-        $conexion = database::getInstance()->getConnection();
-        $sql = "SELECT * FROM categorias WHERE id=?";
-        $stmt = $conexion->prepare($sql);
-        $stmt->execute([$id]);
-        $resultado= $stmt->fetch(PDO::FETCH_ASSOC);
-        if($resultado){
-            return new Categoria($resultado['id'], $resultado['nombre']);
-        }     
-        return null; 
-     }
+     public static function obtenerPorId($id){
+    $conexion = database::getInstance()->getConnection();
+    $sql = "SELECT * FROM categorias WHERE id=?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->execute([$id]);
+    $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($resultado) {
+        return new Categoria($resultado['id'], $resultado['nombre']);
+    }     
+    return null; 
+   }
+
      public function actualizar(){
         $sql = "UPDATE categorias SET nombre=? WHERE id=?";
         $stmt = $this->conexion->prepare($sql);

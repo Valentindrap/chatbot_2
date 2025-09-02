@@ -15,21 +15,21 @@ class Respuesta {
     }
 
     public function guardar() {
-        $sql = "INSERT INTO respuesta (respuesta, pregunta_id) VALUES (?, ?)";
+        $sql = "INSERT INTO respuestas (respuesta, pregunta_id) VALUES (?, ?)";
         $stmt = $this->conexion->prepare($sql);
         return $stmt->execute([$this->respuesta, $this->pregunta]);
     }
 
     public static function obtenerTodas() {
         $conexion = Database::getInstance()->getConnection();
-        $sql = "SELECT * FROM respuesta";
+        $sql = "SELECT * FROM respuestas";
         $stmt = $conexion->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function obtenerPorId($id) {
         $conexion = Database::getInstance()->getConnection();
-        $sql = "SELECT * FROM respuesta WHERE id = ?";
+        $sql = "SELECT * FROM respuestas WHERE id = ?";
         $stmt = $conexion->prepare($sql);
         $stmt->execute([$id]);
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -40,13 +40,13 @@ class Respuesta {
     }
 
     public function actualizar() {
-        $sql = "UPDATE respuesta SET respuesta = ?, pregunta_id = ? WHERE id = ?";
+        $sql = "UPDATE respuestas SET respuesta = ?, pregunta_id = ? WHERE id = ?";
         $stmt = $this->conexion->prepare($sql);
         return $stmt->execute([$this->respuesta, $this->pregunta, $this->id]);
     }
 
     public function eliminar() {
-        $sql = "DELETE FROM respuesta WHERE id = ?";
+        $sql = "DELETE FROM respuestas WHERE id = ?";
         $stmt = $this->conexion->prepare($sql);
         return $stmt->execute([$this->id]);
     }

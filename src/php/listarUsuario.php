@@ -1,13 +1,20 @@
+<?php include("check_session.php"); ?>
+
 <?php
 require_once("./clases/usuario.class.php");
 $usuarios = Usuario::obtenerTodas();
 ?>
-
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../css/generico.css">
+    <link rel="icon" href="../img/logo.png" type="image/png">
+</head>
+</html>
 <h2 style="text-align: center;">Lista de Usuarios</h2>
 <div style="text-align: center; margin-bottom: 10px;">
     <a href="formAltaUsuario.php">Nuevo Usuario</a>
 </div>
-
+<a href="../../entrada.php">Volver</a>
 <?php if (!$usuarios): ?>
     <p style="text-align: center;">No hay usuarios registrados.</p>
 <?php else: ?>
@@ -26,9 +33,10 @@ $usuarios = Usuario::obtenerTodas();
             <td><?= $usuario->getEmail() ?></td>
             <td><?= $usuario->getRolId() ?></td>
             <td>
-                <a href="formEditarUsuario.php?id=<?= $usuario->getId() ?>">Editar</a>
+                
 
                 <form action="controller/usuario.controller.php" method="post" style="display:inline;">
+                    <a href="formEditarUsuario.php?id=<?= $usuario->getId() ?>">Editar</a>
                     <input type="hidden" name="accion" value="eliminar">
                     <input type="hidden" name="id" value="<?= $usuario->getId() ?>">
                     <input type="submit" onclick="return confirm('¿Está seguro de eliminar este usuario?')" value="Eliminar">

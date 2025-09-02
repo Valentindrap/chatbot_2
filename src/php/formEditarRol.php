@@ -1,10 +1,17 @@
+<?php include("check_session.php"); ?>
+
 <?php
 include "clases/rol.class.php";
 
 if(isset($_GET['id'])){
     $rol = Rol::obtenerPorId($_GET['id']);
 ?>
-
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../css/generico.css">
+    <link rel="icon" href="../img/logo.png" type="image/png">
+</head>
+</html>
 <h2>Editar Rol</h2>
 <form name="formEditarRol" method="post" action="controller/rol.controller.php">
     <input type="hidden" name="operacion" value="actualizar"/>
