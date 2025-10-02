@@ -15,11 +15,12 @@
   <div class="container">
     <!-- Botón logout -->
     <div class="logout">
-      <a href="src/php/logout.php">
+      <a href="src/php/login.controller.php?operacion=logout">
         <i class="fas fa-sign-out-alt"></i>
         <span>Cerrar sesión</span>
       </a>
     </div>
+
 
     <header>
       <h1>Panel de Control GauchoAI</h1>

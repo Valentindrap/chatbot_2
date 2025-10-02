@@ -15,29 +15,30 @@ class Usuario {
         $this->email = $email;
         $this->password = $password;
         $this->rol_id = $rol_id;
-        $this->conexion = database::getInstance()->getConnection();
+        $this->conexion = Database::getInstance()->getConnection();
     }
 
+    // ✅ Guardar usuario nuevo (hash de contraseña)
     public function guardar() {
-        $sql = "INSERT INTO `usuarios` (`nombre`, `email`, `password`, `rol_id`) VALUES (?, ?, ?, ?)";
+        $hash = password_hash($this->password, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO usuarios (nombre, email, password, rol_id) VALUES (?, ?, ?, ?)";
         $stmt = $this->conexion->prepare($sql);
-        return $stmt->execute([$this->nombre, $this->email, $this->password, $this->rol_id]);
+        return $stmt->execute([$this->nombre, $this->email, $hash, $this->rol_id]);
     }
 
+    // ✅ Actualizar usuario (si se cambia password la vuelve a hashear)
     public function actualizar() {
         if ($this->password === null) {
-            // No actualizar password, solo otros campos
             $sql = "UPDATE usuarios SET nombre=?, email=?, rol_id=? WHERE id=?";
             $stmt = $this->conexion->prepare($sql);
             return $stmt->execute([$this->nombre, $this->email, $this->rol_id, $this->id]);
         } else {
-            // Actualizar password también
+            $hash = password_hash($this->password, PASSWORD_DEFAULT);
             $sql = "UPDATE usuarios SET nombre=?, email=?, password=?, rol_id=? WHERE id=?";
             $stmt = $this->conexion->prepare($sql);
-            return $stmt->execute([$this->nombre, $this->email, $this->password, $this->rol_id, $this->id]);
+            return $stmt->execute([$this->nombre, $this->email, $hash, $this->rol_id, $this->id]);
         }
     }
-
 
     public function eliminar() {
         $sql = "DELETE FROM usuarios WHERE id=?";
@@ -46,7 +47,7 @@ class Usuario {
     }
 
     public static function obtenerPorId($id) {
-        $conexion = database::getInstance()->getConnection();
+        $conexion = Database::getInstance()->getConnection();
         $sql = "SELECT * FROM usuarios WHERE id=?";
         $stmt = $conexion->prepare($sql);
         $stmt->execute([$id]);
@@ -59,7 +60,7 @@ class Usuario {
     }
 
     public static function obtenerPorEmail($email) {
-        $conexion = database::getInstance()->getConnection();
+        $conexion = Database::getInstance()->getConnection();
         $sql = "SELECT * FROM usuarios WHERE email=?";
         $stmt = $conexion->prepare($sql);
         $stmt->execute([$email]);
@@ -71,6 +72,7 @@ class Usuario {
         return null;
     }
 
+    // ✅ Método clave: autenticar login
     public static function verificarLogin($email, $passwordIngresada) {
         $usuario = self::obtenerPorEmail($email);
         if ($usuario && password_verify($passwordIngresada, $usuario->getPassword())) {
@@ -80,7 +82,7 @@ class Usuario {
     }
 
     public static function obtenerTodas() {
-        $conexion = database::getInstance()->getConnection();
+        $conexion = Database::getInstance()->getConnection();
         $sql = "SELECT * FROM usuarios";
         $stmt = $conexion->query($sql);
         $usuarios = [];
@@ -93,37 +95,17 @@ class Usuario {
     }
 
     // Getters
-    public function getId() {
-        return $this->id;
-    }
-    public function getNombre() {
-        return $this->nombre;
-    }
-    public function getEmail() {
-        return $this->email;
-    }
-    public function getPassword() {
-        return $this->password;
-    }
-    public function getRolId() {
-        return $this->rol_id;
-    }
+    public function getId() { return $this->id; }
+    public function getNombre() { return $this->nombre; }
+    public function getEmail() { return $this->email; }
+    public function getPassword() { return $this->password; }
+    public function getRolId() { return $this->rol_id; }
 
     // Setters
-    public function setId($id) {
-        $this->id = $id;
-    }
-    public function setNombre($nombre) {
-        $this->nombre = $nombre;
-    }
-    public function setEmail($email) {
-        $this->email = $email;
-    }
-    public function setPassword($password) {
-        $this->password = $password;
-    }
-    public function setRolId($rol_id) {
-        $this->rol_id = $rol_id;
-    }
+    public function setId($id) { $this->id = $id; }
+    public function setNombre($nombre) { $this->nombre = $nombre; }
+    public function setEmail($email) { $this->email = $email; }
+    public function setPassword($password) { $this->password = $password; }
+    public function setRolId($rol_id) { $this->rol_id = $rol_id; }
 }
 ?>
