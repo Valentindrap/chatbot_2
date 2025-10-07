@@ -15,7 +15,7 @@
   <div class="container">
     <!-- Botón logout -->
     <div class="logout">
-      <a href="src/php/login.controller.php?operacion=logout">
+      <a href="src/php/controller/login.controller.php?operacion=logout">
         <i class="fas fa-sign-out-alt"></i>
         <span>Cerrar sesión</span>
       </a>

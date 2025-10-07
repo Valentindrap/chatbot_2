@@ -1,5 +1,4 @@
 <?php
-
 include "../clases/usuario.class.php";
 $operacion = $_POST['operacion'];
 $result = false;
@@ -9,7 +8,7 @@ if ($operacion == "guardar") {
         null,
         $_POST['nombre'],
         $_POST['email'],
-        password_hash($_POST['password'], PASSWORD_DEFAULT),
+        $_POST['password'], // sin hash, lo hace la clase
         $_POST['rol']
     );
     $result = $usuario->guardar();
@@ -20,7 +19,7 @@ if ($operacion == "guardar") {
         $usuario->setNombre($_POST['nombre']);
         $usuario->setEmail($_POST['email']);
         $usuario->setRolId($_POST['rol']);
-        $usuario->setPassword(password_hash($_POST['password'], PASSWORD_DEFAULT));
+        $usuario->setPassword($_POST['password']); // sin hash, lo hace la clase
 
         $result = $usuario->actualizar();
     }
@@ -31,9 +30,10 @@ if ($operacion == "guardar") {
 }
 
 if ($result) {
-    echo "<br>NASHEEEEEEEIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII👌👌👌👌👌👌";
+    echo "<br>✅ Registro exitoso";
 } else {
-    echo "<br>NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO👌👌👌👌👌👌👌👌👌👌👌👌👌👌👌👌👌👌👌👌👌👌👌👌👌👌👌👌👌";
+    echo "<br>❌ Error al guardar el usuario";
 }
 
-echo "<a href='../listarUsuario.php'>Volver</a>";
+echo "<br><a href='../listarUsuario.php'>Volver</a>";
+?>

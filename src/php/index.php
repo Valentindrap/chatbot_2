@@ -13,7 +13,7 @@
     <div class="app-container">
         <!-- Header -->
         <header class="app-header">
-            <a href="../../login.html" class="login-button">
+            <a href="../../login.php" class="login-button">
                 <span class="icon-login"></span>
                 Iniciar Sesión
             </a>

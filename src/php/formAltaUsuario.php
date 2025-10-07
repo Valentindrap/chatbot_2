@@ -1,6 +1,6 @@
 
 <?php
-require_once("./clases/usuario.class.php");
+
 ?>
 <html>
 <head>
